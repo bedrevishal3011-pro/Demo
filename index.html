@@ -3,164 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Professional Police Bharti Paper Generator</title>
+    <title>Secure Exam Portal</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
-
-    <div class="admin-panel">
-        <div class="panel-header">
-            <h2>👮‍♂️ पोलीस भरती पेपर जनरेटर (Pro)</h2>
-            <p>Admin Control | Watermark | 2-Column Layout</p>
-        </div>
-        
-        <div class="section-heading">१. क्लास व पेपरची माहिती</div>
-        <div class="input-row">
-            <div class="input-group">
-                <label>क्लासचे नाव (Main Title):</label>
-                <input type="text" id="inp-class-name" value="स्वामी विवेकानंद क्लासेस, वाशिम">
-            </div>
-            <div class="input-group">
-                <label>उप-शीर्षक (Tagline):</label>
-                <input type="text" id="inp-sub-header" value="पोलीस भरती व सरळसेवा मार्गदर्शन केंद्र">
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-group">
-                <label>संपर्क / मोबाईल:</label>
-                <input type="text" id="inp-contact" value="संचालक: किरण सोळंके सर (Mo: 9999999999)">
-            </div>
-            <div class="input-group">
-                <label>पेपरचे नाव:</label>
-                <input type="text" id="inp-exam-name" value="सराव प्रश्नपत्रिका क्रमांक - 01">
-            </div>
-        </div>
-        
-        <div class="section-heading">२. सुरक्षा आणि टायमिंग</div>
-        <div class="input-row">
-            <div class="input-group">
-                <label>तारीख (Exam Date):</label>
-                <input type="date" id="inp-date">
-            </div>
-            <div class="input-group">
-                <label>वेळ (Duration):</label>
-                <input type="text" id="inp-time" value="९० मिनिटे">
-            </div>
-            <div class="input-group">
-                <label>पेपर सेट (Set Code):</label>
-                <input type="text" id="inp-set-code" value="SET-A">
-            </div>
-        </div>
-        <div class="input-row">
-            <div class="input-group">
-                <label>🛡️ वॉटरमार्क टेक्स्ट:</label>
-                <input type="text" id="inp-watermark" value="Swami Vivekanand Classes" placeholder="मागे दिसणारे नाव">
-            </div>
-        </div>
-
-        <div class="section-heading">३. विषय निवड व प्रश्न संख्या (Max 25 per subject)</div>
-        <div class="subjects-grid">
-            <div class="subject-card">
-                <div class="card-head">
-                    <input type="checkbox" id="chk-marathi" checked> <label for="chk-marathi">मराठी व्याकरण</label>
-                </div>
-                <input type="number" id="count-marathi" value="25">
-            </div>
-            <div class="subject-card">
-                <div class="card-head">
-                    <input type="checkbox" id="chk-english" checked> <label for="chk-english">English Grammar</label>
-                </div>
-                <input type="number" id="count-english" value="25">
-            </div>
-            <div class="subject-card">
-                <div class="card-head">
-                    <input type="checkbox" id="chk-gk" checked> <label for="chk-gk">सामान्य ज्ञान (GK)</label>
-                </div>
-                <input type="number" id="count-gk" value="25">
-            </div>
-            <div class="subject-card">
-                <div class="card-head">
-                    <input type="checkbox" id="chk-math" checked> <label for="chk-math">अंकगणित (Math)</label>
-                </div>
-                <input type="number" id="count-math" value="25">
-            </div>
-            <div class="subject-card">
-                <div class="card-head">
-                    <input type="checkbox" id="chk-reasoning" checked> <label for="chk-reasoning">बुद्धिमत्ता</label>
-                </div>
-                <input type="number" id="count-reasoning" value="25">
-            </div>
-        </div>
-
-        <div class="btn-group">
-            <button onclick="generatePaper()">⚙️ पेपर तयार करा</button>
-            <button class="print-btn" onclick="window.print()">🖨️ प्रिंट / PDF</button>
+<body oncontextmenu="return false;"> <div id="login-overlay">
+        <div class="login-box">
+            <h2>🔐 Admin Access Only</h2>
+            <p>कृपया पासवर्ड टाका:</p>
+            <input type="password" id="admin-pass" placeholder="Enter Password">
+            <button onclick="checkLogin()">Login</button>
+            <p id="error-msg" style="color:red; display:none; margin-top:10px;">चुकीचा पासवर्ड!</p>
         </div>
     </div>
 
-    <div class="paper-container">
-        <div id="disp-watermark-bg" class="watermark-bg"></div>
-
-        <header class="paper-header">
-            <h1 class="class-name" id="disp-class-name"></h1>
-            <div class="sub-header" id="disp-sub-header"></div>
-            <div class="sub-header" id="disp-contact"></div>
+    <div id="main-app" style="display: none;">
+        
+        <div class="admin-panel">
+            <div class="panel-header">
+                <h2>👮‍♂️ पोलीस भरती पेपर जनरेटर (Pro)</h2>
+                <button onclick="logout()" style="background: #c0392b; font-size: 12px; padding: 5px 10px;">🔒 Logout</button>
+            </div>
             
-            <div class="exam-meta-box">
-                <span id="disp-exam-name"></span>
-                <span id="disp-set-code"></span>
-                <span id="disp-time"></span>
-                <span id="disp-marks"></span>
-                <span id="disp-date"></span>
+            <div class="section-heading">१. क्लास व पेपरची माहिती</div>
+            <div class="input-row">
+                <div class="input-group">
+                    <label>क्लासचे नाव:</label>
+                    <input type="text" id="inp-class-name" value="स्वामी विवेकानंद क्लासेस, वाशिम">
+                </div>
+                <div class="input-group">
+                    <label>पेपरचे नाव:</label>
+                    <input type="text" id="inp-exam-name" value="सराव प्रश्नपत्रिका क्रमांक - 01">
+                </div>
             </div>
-        </header>
+            <div class="section-heading">३. विषय निवड</div>
+            <div class="subjects-grid">
+                 <div class="subject-card">
+                    <input type="checkbox" id="chk-marathi" checked> <label>मराठी</label>
+                    <input type="number" id="count-marathi" value="25">
+                 </div>
+                 <div class="subject-card">
+                    <input type="checkbox" id="chk-gk" checked> <label>GK</label>
+                    <input type="number" id="count-gk" value="25">
+                 </div>
+                 </div>
 
-        <div class="questions-wrapper" id="paper-content"></div>
-
-        <div class="answer-key-page" id="answer-key-section">
-            <div class="key-header">
-                <div class="key-title">--- उत्तरतालिका (Answer Key) ---</div>
-                <div id="disp-key-meta" style="font-size: 10px;"></div>
+            <div class="btn-group">
+                <button onclick="generatePaper()">⚙️ पेपर तयार करा</button>
+                <button class="print-btn" onclick="window.print()">🖨️ प्रिंट / PDF</button>
             </div>
-            <div class="key-grid" id="key-content"></div>
         </div>
 
-        <footer class="paper-footer">
-            <span id="disp-footer"></span>
-        </footer>
+        <div class="paper-container">
+            <div id="disp-watermark-bg" class="watermark-bg"></div>
+            <header class="paper-header">
+                <h1 class="class-name" id="disp-class-name"></h1>
+                <div class="sub-header" id="disp-sub-header"></div>
+                <div class="sub-header" id="disp-contact"></div>
+                <div class="exam-meta-box">
+                    <span id="disp-exam-name"></span>
+                    <span id="disp-set-code"></span>
+                    <span id="disp-time"></span>
+                    <span id="disp-marks"></span>
+                    <span id="disp-date"></span>
+                </div>
+            </header>
+
+            <div class="questions-wrapper" id="paper-content"></div>
+
+            <div class="answer-key-page" id="answer-key-section">
+                <div class="key-header">
+                    <div class="key-title">--- उत्तरतालिका (Answer Key) ---</div>
+                    <div id="disp-key-meta" style="font-size: 10px;"></div>
+                </div>
+                <div class="key-grid" id="key-content"></div>
+            </div>
+
+            <footer class="paper-footer">
+                <span id="disp-footer"></span>
+            </footer>
+        </div>
+
     </div>
 
     <script src="questions.js"></script>
     <script src="script.js"></script>
-
-</body>
-</html>            <div class="exam-meta-box">
-                <span id="disp-exam-name"></span>
-                <span id="disp-set-code"></span>
-                <span id="disp-time"></span>
-                <span id="disp-marks"></span>
-                <span id="disp-date"></span>
-            </div>
-        </header>
-
-        <div class="questions-wrapper" id="paper-content"></div>
-
-        <div class="answer-key-page" id="answer-key-section">
-            <div class="key-header">
-                <div class="key-title">--- उत्तरतालिका (Answer Key) ---</div>
-                <div id="disp-key-meta" style="font-size: 10px;"></div>
-            </div>
-            <div class="key-grid" id="key-content"></div>
-        </div>
-
-        <footer class="paper-footer">
-            <span id="disp-footer"></span>
-        </footer>
-    </div>
-
-    <script src="questions.js"></script>
-    <script src="script.js"></script>
-
 </body>
 </html>
