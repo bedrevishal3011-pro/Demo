@@ -30,6 +30,7 @@ input { width: 100%; padding: 9px; border: 1px solid #ccc; border-radius: 5px; }
 .subjects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
 .subject-card { background: #f9f9f9; padding: 10px; border: 1px solid #ddd; border-radius: 6px; }
 .card-head { display: flex; align-items: center; gap: 8px; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
+.btn-group { margin-top: 20px; display: flex; gap: 10px; }
 button { padding: 12px 25px; background: #27ae60; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 15px; }
 .print-btn { background: #2980b9; }
 
@@ -64,18 +65,18 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
 
 /* Questions */
 .questions-wrapper { position: relative; z-index: 1; column-count: 2; column-gap: 10mm; column-rule: 1px solid #ddd; }
-.section-title { column-span: all; background: #2c3e50; color: white; padding: 5px; text-align: center; font-weight: 700; margin: 15px 0 10px 0; }
-.question-item { break-inside: avoid; margin-bottom: 12px; font-size: 12px; }
+.section-title { column-span: all; background: #2c3e50; color: white; padding: 5px; text-align: center; font-weight: 700; margin: 15px 0 10px 0; -webkit-column-break-inside: avoid; break-inside: avoid; }
+.question-item { break-inside: avoid; -webkit-column-break-inside: avoid; margin-bottom: 12px; font-size: 12px; }
 .q-text { font-weight: 700; display: block; margin-bottom: 3px; }
 .options-list { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; }
 .options-list li { width: 50%; font-size: 12px; }
 .options-list.full-width li { width: 100%; }
 
-/* --- PRINT SETTINGS (Perfect 2 Columns & 6 Pages) --- */
+/* --- PRINT SETTINGS --- */
 @media print {
     @page {
         size: A4;
-        margin: 15mm 15mm 15mm 15mm; /* Standard Margins */
+        margin: 10mm 15mm;
     }
     body { background: white; margin: 0; padding: 0; }
     .admin-panel { display: none !important; }
@@ -88,7 +89,7 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
 
     /* Watermark for Print */
     .watermark-bg {
-        position: fixed; /* Repeats on every page */
+        position: fixed;
         font-size: 60pt;
         color: rgba(0,0,0,0.04);
         top: 40%;
@@ -97,51 +98,16 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
     /* 2 Column Layout */
     .questions-wrapper {
         column-count: 2;
-        column-gap: 10mm;
+        column-gap: 8mm;
         column-rule: 0.5px solid #000;
-        margin-top: 15px;
+        margin-top: 10px;
     }
 
     .section-title { 
         font-size: 12pt; 
         padding: 4px; 
-        margin: 15px 0 10px 0; 
+        margin: 15px 0 5px 0; 
         background: #000 !important; color: #fff !important; 
-        -webkit-print-color-adjust: exact; 
-    }
-    
-    /* Spacing for 6 Pages Target */
-    .question-item {
-        margin-bottom: 14px; /* गॅप ॲडजस्ट केला आहे */
-        font-size: 11pt;     /* वाचनीय फॉन्ट */
-        line-height: 1.4;
-        padding-bottom: 2px;
-    }
-    .q-text { font-weight: 700; margin-bottom: 4px; }
-    .options-list li { font-size: 11pt; width: 50%; padding-right: 5px; margin-bottom: 2px; }
-    .options-list.full-width li { width: 100%; }
-
-    /* --- ANSWER KEY: PAGE 7 --- */
-    .answer-key-page {
-        page-break-before: always; /* Force New Page */
-        margin-top: 0;
-        padding-top: 40px;
-    }
-    .key-title { text-align: center; font-size: 18pt; font-weight: bold; text-decoration: underline; margin-bottom: 20px; }
-    .key-grid {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        gap: 8px;
-        font-size: 11pt;
-    }
-    .key-item { border: 1px solid #000; text-align: center; padding: 5px; font-weight: 600; }
-
-    /* Footer */
-    .paper-footer {
-        position: fixed; bottom: 0; left: 0; right: 0;
-        text-align: center; font-size: 10pt; border-top: 1px solid black; padding-top: 8px; background: #fff;
-    }
-}        background: #000 !important; color: #fff !important; 
         -webkit-print-color-adjust: exact; 
         break-inside: avoid;
     }
