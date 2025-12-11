@@ -1,4 +1,45 @@
 // ==========================================
+// 🔐 SECURITY & LOGIN LOGIC
+// ==========================================
+
+// 1. पासवर्ड सेट करा (इथे तुझा पासवर्ड टाक)
+const ADMIN_PASS = "admin123"; 
+
+function checkLogin() {
+    const userPass = document.getElementById('admin-pass').value;
+    const errorMsg = document.getElementById('error-msg');
+    
+    if (userPass === ADMIN_PASS) {
+        // पासवर्ड बरोबर असेल तर...
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('main-app').style.display = 'block';
+    } else {
+        // पासवर्ड चुकीचा असेल तर...
+        errorMsg.style.display = 'block';
+    }
+}
+
+function logout() {
+    location.reload(); // पेज रिफ्रेश करेल म्हणजे पुन्हा लॉक होईल
+}
+
+// 2. DISABLE RIGHT CLICK & INSPECT (Security)
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+document.onkeydown = function(e) {
+    // F12, Ctrl+U, Ctrl+Shift+I बंद करण्यासाठी
+    if(e.keyCode == 123) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { return false; }
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { return false; }
+}
+
+// ==========================================
+// 🧠 जुना LOGIC ENGINE (खाली जसाच्या तसा ठेवा)
+// ==========================================
+// ... (इथे तुमचा जुना generatePaper चा कोड तसाच राहील)
+// ==========================================
 // 🧠 LOGIC ENGINE
 // ==========================================
 
