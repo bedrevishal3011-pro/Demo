@@ -2,32 +2,30 @@
 // 🔐 SECURITY & LOGIN LOGIC
 // ==========================================
 
-// 1. पासवर्ड सेट करा (इथे तुझा पासवर्ड टाक)
-const ADMIN_PASS = "admin123"; 
+const ADMIN_PASS = "vishal121"; // 🔑 इथे तुमचा पासवर्ड सेट करा
 
 function checkLogin() {
     const userPass = document.getElementById('admin-pass').value;
     const errorMsg = document.getElementById('error-msg');
     
     if (userPass === ADMIN_PASS) {
-        // पासवर्ड बरोबर असेल तर...
         document.getElementById('login-overlay').style.display = 'none';
         document.getElementById('main-app').style.display = 'block';
+        // Login झाल्यावरच पेपर लोड करा
+        setDefaultDate();
+        generatePaper();
     } else {
-        // पासवर्ड चुकीचा असेल तर...
         errorMsg.style.display = 'block';
     }
 }
 
 function logout() {
-    location.reload(); // पेज रिफ्रेश करेल म्हणजे पुन्हा लॉक होईल
+    location.reload(); // पेज रिफ्रेश करून पुन्हा लॉक
 }
 
-// 2. DISABLE RIGHT CLICK & INSPECT (Security)
+// Disable Right Click & Inspect
 document.addEventListener('contextmenu', event => event.preventDefault());
-
 document.onkeydown = function(e) {
-    // F12, Ctrl+U, Ctrl+Shift+I बंद करण्यासाठी
     if(e.keyCode == 123) { return false; }
     if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { return false; }
     if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) { return false; }
@@ -36,11 +34,7 @@ document.onkeydown = function(e) {
 }
 
 // ==========================================
-// 🧠 जुना LOGIC ENGINE (खाली जसाच्या तसा ठेवा)
-// ==========================================
-// ... (इथे तुमचा जुना generatePaper चा कोड तसाच राहील)
-// ==========================================
-// 🧠 LOGIC ENGINE
+// 🧠 PAPER GENERATION LOGIC (पूर्ण कोड)
 // ==========================================
 
 const sectionsConfig = [
@@ -51,7 +45,6 @@ const sectionsConfig = [
     { id: 'reasoning', title: 'विभाग ५: बुद्धिमत्ता चाचणी', inputId: 'count-reasoning', checkId: 'chk-reasoning' }
 ];
 
-// Shuffle Array
 function shuffleArray(array) {
     if (!array) return [];
     let shuffled = JSON.parse(JSON.stringify(array));
@@ -62,12 +55,9 @@ function shuffleArray(array) {
     return shuffled;
 }
 
-// Logic: No Repetition (Standard)
 function getSubset(dbArray, count) {
     if (!dbArray || dbArray.length === 0) return [];
     let shuffledPool = shuffleArray(dbArray);
-    
-    // Safety check: if requested > available, return max available
     if (count > shuffledPool.length) {
         return shuffledPool; 
     }
@@ -94,17 +84,14 @@ function generatePaper() {
     document.getElementById('disp-set-code').innerText = "सेट: " + setCode;
     document.getElementById('disp-time').innerText = "वेळ: " + document.getElementById('inp-time').value;
 
-    // Watermark
     document.getElementById('disp-watermark-bg').innerText = document.getElementById('inp-watermark').value;
 
-    // Date
     const rawDate = document.getElementById('inp-date').value;
     if(rawDate) {
         const d = new Date(rawDate);
         document.getElementById('disp-date').innerText = "दिनांक: " + d.toLocaleDateString('en-GB'); 
     }
 
-    // Footer
     document.getElementById('disp-footer').innerText = `${className} | ${examName} | ${setCode} | यशाची परंपरा!`;
     document.getElementById('disp-key-meta').innerText = `${examName} - ${setCode}`;
 
@@ -141,7 +128,6 @@ function generatePaper() {
                     const qDiv = document.createElement('div');
                     qDiv.className = 'question-item';
                     
-                    // Smart Options Layout (Check if long options)
                     const isLongOption = item.opt.some(o => o.length > 25);
                     const listClass = isLongOption ? 'options-list full-width' : 'options-list';
 
@@ -171,8 +157,3 @@ function generatePaper() {
 
     document.getElementById('disp-marks').innerText = `एकूण गुण: ${totalQuestions}`;
 }
-
-window.onload = function() {
-    setDefaultDate();
-    generatePaper();
-};
