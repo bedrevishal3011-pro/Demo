@@ -8,7 +8,8 @@ body {
     margin: 0; padding: 20px;
     color: #000;
 }
-/* --- LOGIN SCREEN STYLES --- */
+
+/* --- LOGIN SCREEN (SECURITY) --- */
 #login-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #2c3e50;
@@ -18,20 +19,16 @@ body {
 .login-box {
     background: white; padding: 30px; border-radius: 10px;
     text-align: center; box-shadow: 0 0 20px rgba(0,0,0,0.5);
-    width: 300px;
+    width: 320px;
 }
+.login-box h2 { margin-top: 0; color: #d35400; }
 .login-box input {
-    margin: 10px 0; padding: 10px; width: 100%;
+    margin: 15px 0; padding: 12px; width: 100%;
     border: 2px solid #ddd; border-radius: 5px; font-size: 16px;
 }
 .login-box button {
-    background: #27ae60; width: 100%; margin-top: 10px;
-}
-
-/* Print करताना Login Screen लपवण्यासाठी */
-@media print {
-    #login-overlay { display: none !important; }
-    #main-app { display: block !important; }
+    background: #27ae60; width: 100%; margin-top: 5px; padding: 12px;
+    color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer;
 }
 
 /* --- ADMIN PANEL --- */
@@ -95,7 +92,7 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
     background: #2c3e50; color: white; 
     padding: 5px; text-align: center; 
     font-weight: 700; margin: 15px 0 10px 0; 
-    break-inside: avoid; /* सेक्शन हेडलाइन कधीच तुटणार नाही */
+    break-inside: avoid;
 }
 .question-item { 
     break-inside: avoid; 
@@ -114,7 +111,6 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
 }
 .key-title { text-align: center; font-size: 18px; font-weight: bold; text-decoration: underline; margin-bottom: 20px; }
 
-/* हे महत्त्वाचे: Answer Key ला ग्रिड बनवते */
 .key-grid {
     display: grid;
     grid-template-columns: repeat(10, 1fr); /* 10 कॉलम फिक्स */
@@ -137,7 +133,12 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
         margin: 10mm 15mm;
     }
     body { background: white; margin: 0; padding: 0; }
+    
+    /* Login लपवा, Main App दाखवा */
+    #login-overlay { display: none !important; }
+    #main-app { display: block !important; }
     .admin-panel, .print-btn { display: none !important; }
+
     .paper-container { width: 100%; max-width: 100%; box-shadow: none; margin: 0; padding: 0; border: none; }
 
     /* Print Typography */
@@ -167,7 +168,7 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
         background: #000 !important; color: #fff !important; 
         -webkit-print-color-adjust: exact; 
         break-inside: avoid; 
-        break-after: avoid; /* हेडलाइननंतर लगेच प्रश्न यावा */
+        break-after: avoid; 
     }
     
     .question-item {
@@ -175,7 +176,7 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
         font-size: 10.5pt;
         line-height: 1.3;
         padding-bottom: 2px;
-        break-inside: avoid; /* प्रश्न दोन कॉलममध्ये तुटणार नाही */
+        break-inside: avoid;
     }
     .q-text { font-weight: 700; margin-bottom: 2px; }
     .options-list li { font-size: 10.5pt; width: 50%; padding-right: 2px; margin-bottom: 1px; }
@@ -188,106 +189,12 @@ button { padding: 12px 25px; background: #27ae60; color: white; border: none; bo
         border-top: none;
         padding-top: 40px;
     }
-    /* प्रिंटमध्ये ग्रिड नक्की दिसेल */
     .key-grid {
         display: grid;
         grid-template-columns: repeat(10, 1fr);
         gap: 5px;
     }
     .key-item { border: 1px solid #000; font-size: 11pt; }
-
-    /* Footer */
-    .paper-footer {
-        position: fixed; bottom: 0; left: 0; right: 0;
-        text-align: center; font-size: 10pt; border-top: 1px solid black; padding-top: 8px; background: #fff;
-    }
-}    /* Print Typography */
-    .class-name { font-size: 24pt; }
-    .sub-header { font-size: 12pt; }
-    .exam-meta-box { font-size: 11pt; padding: 4px 8px; margin-top: 10px; }
-
-    /* Watermark for Print */
-    .watermark-bg {
-        position: fixed;
-        font-size: 60pt;
-        color: rgba(0,0,0,0.04);
-        top: 40%;
-    }
-
-    /* 2 Column Layout */
-    .questions-wrapper {
-        column-count: 2;
-        column-gap: 8mm;
-        column-rule: 0.5px solid #000;
-        margin-top: 10px;
-    }
-
-    .section-title { 
-        font-size: 12pt; 
-        padding: 4px; 
-        margin: 15px 0 5px 0; 
-        background: #000 !important; color: #fff !important; 
-        -webkit-print-color-adjust: exact; 
-        break-inside: avoid;
-    }
-    
-    .question-item {
-        margin-bottom: 10px;
-        font-size: 10.5pt;
-        line-height: 1.3;
-        padding-bottom: 2px;
-        break-inside: avoid;
-    }
-    .q-text { font-weight: 700; margin-bottom: 2px; }
-    .options-list li { font-size: 10.5pt; width: 50%; padding-right: 2px; margin-bottom: 1px; }
-    .options-list.full-width li { width: 100%; }
-
-    /* Answer Key Page Break */
-    .answer-key-page {
-        page-break-before: always; /* नवीन पानावर घेईल */
-        margin-top: 0;
-        border-top: none;
-    }
-    .key-grid {
-        grid-template-columns: repeat(10, 1fr); /* प्रिंट मध्येही 10 कॉलम फिक्स */
-        font-size: 11pt;
-    }
-
-    /* Footer */
-    .paper-footer {
-        position: fixed; bottom: 0; left: 0; right: 0;
-        text-align: center; font-size: 10pt; border-top: 1px solid black; padding-top: 8px; background: #fff;
-    }
-}        background: #000 !important; color: #fff !important; 
-        -webkit-print-color-adjust: exact; 
-        break-inside: avoid;
-    }
-    
-    .question-item {
-        margin-bottom: 10px;
-        font-size: 10.5pt;
-        line-height: 1.3;
-        padding-bottom: 2px;
-        break-inside: avoid; /* Prevent splitting question across columns */
-    }
-    .q-text { font-weight: 700; margin-bottom: 2px; }
-    .options-list li { font-size: 10.5pt; width: 50%; padding-right: 2px; margin-bottom: 1px; }
-    .options-list.full-width li { width: 100%; }
-
-    /* --- ANSWER KEY: PAGE 7 --- */
-    .answer-key-page {
-        page-break-before: always;
-        margin-top: 0;
-        padding-top: 40px;
-    }
-    .key-title { text-align: center; font-size: 18pt; font-weight: bold; text-decoration: underline; margin-bottom: 20px; }
-    .key-grid {
-        display: grid;
-        grid-template-columns: repeat(10, 1fr);
-        gap: 5px;
-        font-size: 11pt;
-    }
-    .key-item { border: 1px solid #000; text-align: center; padding: 3px; font-weight: 600; }
 
     /* Footer */
     .paper-footer {
